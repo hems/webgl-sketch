@@ -1,6 +1,5 @@
 path 		= require 'path'
 gulp 		= require 'gulp'
-livereload  = require 'gulp-livereload'
 jade        = require 'gulp-jade'
 handleError = require '../util/handle_error'
 gulpif      = require 'gulp-if'
@@ -21,5 +20,4 @@ gulp.task 'templates', ->
 			pretty: true
 		))
 		.pipe gulp.dest exports.paths.destination
-		.pipe gulpif development, livereload()
 		.on 'error', handleError

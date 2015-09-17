@@ -1,25 +1,43 @@
-gulp   = require 'gulp'
-concat = require 'gulp-concat'
+config         = require '../../package.json'
+gulp   		   = require 'gulp'
+gulpif         = require 'gulp-if'
+concat 		   = require 'gulp-concat'
+uglify         = require 'gulp-uglify'
+mainBowerFiles = require 'main-bower-files'
+handleError    = require '../util/handle_error'
+rename         = require 'gulp-rename'
 
 production = process.env.NODE_ENV is 'production'
 
 exports.paths =
-	source: [
-		'./src/vendor/jquery-2.1.1.min.js'
-		'./src/vendor/EasePack.min.js'
-		'./src/vendor/CSSPlugin.min.js'
-		'./src/vendor/TweenLite.min.js'
-		'./src/vendor/three.min.js'
-		'./src/vendor/TrackballControls.js'
-		'./src/vendor/SubdivisionModifier.js'
-		'./src/vendor/mobile-detect.js'
-	]
+	source: mainBowerFiles({
+		"overrides": {
+			"dat-gui": {
+				"main": "build/dat.gui.js"
+			}
+		}
+	})
 	destination: './public/js/'
 	filename: 'vendor.js'
+	release: "vendor.min.#{config.version}.js"
+
+# Additional files
+exports.paths.source = exports.paths.source.concat [
+	__dirname + '/../../bower_components/three.js/examples/js/controls/OrbitControls.js'
+	__dirname + '/../../src/vendor/*.js'
+]
 
 gulp.task 'vendor', ->
+
+	if production
+		filename = exports.paths.release
+	else
+		filename = exports.paths.filename
 
 	gulp
 		.src exports.paths.source
 		.pipe concat exports.paths.filename
+		.pipe gulpif production, uglify()
+		.pipe rename filename
 		.pipe gulp.dest exports.paths.destination
+		.on 'error', handleError

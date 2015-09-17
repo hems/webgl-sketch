@@ -1,15 +1,16 @@
 settings      = require 'app/settings'
-cameras       = require 'app/controllers/webgl/cameras'
-scene 		  = require 'app/controllers/webgl/scene'
-renderer      = require 'app/controllers/webgl/renderer'
-controls      = require 'app/controllers/webgl/controls'
+cameras       = require 'webgl/cameras'
+scene 		  = require 'webgl/scene'
+renderer      = require 'webgl/renderer'
+Lights 		  = require 'webgl/lights'
+controls      = require 'webgl/controls'
 gui 		  = require 'controllers/gui'
 win 	      = require 'utils/window'
 RAF 	      = require 'utils/raf'
 happens       = require 'happens'
 View 		  = require 'views/index'
 
-module.exports = new class Index
+module.exports = new class Main
 
 	game: null
 
@@ -28,8 +29,9 @@ module.exports = new class Index
 			camera.position.set 1 * zoom, 0.75 * zoom, 1 * zoom
 			camera.lookAt new THREE.Vector3
 
-		zoom cameras.dev, 60
-		zoom cameras.user, 60
+		zoom cameras.dev, 100
+		
+		cameras.user.position.z = 800
 				
 		###
 		Renderer
@@ -51,12 +53,10 @@ module.exports = new class Index
 
 
 		###
-		Scene
+		Lights
 		###
 
-		if settings.fog
-			gui.add( scene.fog, 'density', 0, 0.1)
-
+		scene.add(light) for light in Lights.all
 
 		###
 		View
@@ -81,8 +81,8 @@ module.exports = new class Index
 
 	_update: =>
 
-		do controls.update
-
+		do controls.update if !settings.live
+		
 		if settings.debug
 			@_render cameras.dev,  0, 0, 1, 1
 			# @_render cameras.user, 0, 0, 0.25, 0.25

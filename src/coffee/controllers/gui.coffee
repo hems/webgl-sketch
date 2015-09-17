@@ -18,6 +18,8 @@ else
 
 		add:       -> return @
 		addFolder: -> new Folder
+		addColor: -> return @
+		listen: -> return @
 		name:      -> return @
 		close:     -> return @
 		step: -> return @

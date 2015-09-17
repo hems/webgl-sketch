@@ -15,11 +15,10 @@ module.exports =
 		extensions: [ '', '.js', '.coffee' ]
 		alias:
 			app 		: __dirname + '/src/coffee'
-			models 		: __dirname + '/src/coffee/models'
 			controllers : __dirname + '/src/coffee/controllers'
 			utils       : __dirname + '/src/coffee/utils'
 			views       : __dirname + '/src/coffee/views'
-			data        : __dirname + '/src/coffee/data'
+			webgl       : __dirname + '/src/coffee/webgl'
 			templates   : __dirname + '/src/jade'
 
 	node:

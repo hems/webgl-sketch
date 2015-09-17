@@ -1,9 +1,9 @@
-path 		= require 'path'
+config 	 	= require '../../package'
 gulp 		= require 'gulp'
 webpack     = require 'gulp-webpack'
 uglify      = require 'gulp-uglify'
 gulpif      = require 'gulp-if'
-livereload  = require 'gulp-livereload'
+rename      = require 'gulp-rename'
 handleError = require '../util/handle_error'
 
 development = process.env.NODE_ENV is 'development'
@@ -15,14 +15,20 @@ exports.paths =
 	watch: './src/coffee/**/*.coffee'
 	destination: './public/js/'
 	filename: 'app.js'
+	release: "app.min.#{config.version}.js"
 
 gulp.task 'scripts', ->
+
+	if production
+		filename = exports.paths.release
+	else
+		filename = exports.paths.filename
 
 	gulp.src exports.paths.source
 
 		.pipe webpack require( base_path + '/webpack.config' )
 		.pipe gulpif production, uglify()
+		.pipe rename filename
 		.pipe gulp.dest exports.paths.destination
-		.pipe gulpif development, livereload()
 
 		.on 'error', handleError

@@ -1,0 +1,22 @@
+{
+  "name": "webgl-app",
+  "version": "0.0.0",
+  "homepage": "https://github.com/IVXVIXVIII/webgl-app",
+  "authors": [
+    "info@davidpaulrosser.co.uk <info@davidpaulrosser.co.uk>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "gsap": "~1.18.0",
+    "jquery": "~2.1.4",
+    "mobile-detect": "~1.2.1",
+    "three.js": "threejs#*"
+  }
+}

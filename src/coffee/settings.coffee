@@ -1,4 +1,3 @@
-md = new MobileDetect(window.navigator.userAgent)
 
 module.exports =
 
@@ -6,7 +5,7 @@ module.exports =
 	debug: on
 	base_path: ''
 	retina: (window.devicePixelRatio is 2)
-	fog: off
+	fog: on
 
 ###
 Controls
@@ -14,7 +13,7 @@ Controls
 
 gui = require 'controllers/gui'
 
-folder = gui.addFolder 'app'
+folder = gui.addFolder 'settings'
 # do folder.open
 
 folder.add module.exports, 'debug'
