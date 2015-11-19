@@ -1,10 +1,11 @@
 config 	 	= require '../../package'
 gulp 		= require 'gulp'
-webpack     = require 'gulp-webpack'
+coffeeify   = require 'gulp-coffeeify'
 uglify      = require 'gulp-uglify'
 gulpif      = require 'gulp-if'
 rename      = require 'gulp-rename'
 handleError = require '../util/handle_error'
+browserSync = require 'browser-sync'
 
 development = process.env.NODE_ENV is 'development'
 production  = process.env.NODE_ENV is 'production'
@@ -25,10 +26,12 @@ gulp.task 'scripts', ->
 		filename = exports.paths.filename
 
 	gulp.src exports.paths.source
-
-		.pipe webpack require( base_path + '/webpack.config' )
+		.pipe coffeeify({
+			debug: development
+			transform: ['aliasify']
+		})
 		.pipe gulpif production, uglify()
 		.pipe rename filename
-		.pipe gulp.dest exports.paths.destination
-
 		.on 'error', handleError
+		.pipe gulp.dest exports.paths.destination
+		.pipe gulpif development, browserSync.stream()

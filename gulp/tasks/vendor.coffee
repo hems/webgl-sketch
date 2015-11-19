@@ -29,10 +29,7 @@ exports.paths.source = exports.paths.source.concat [
 
 gulp.task 'vendor', ->
 
-	if production
-		filename = exports.paths.release
-	else
-		filename = exports.paths.filename
+	filename = if production then exports.paths.release else exports.paths.filename
 
 	gulp
 		.src exports.paths.source

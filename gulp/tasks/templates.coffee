@@ -1,8 +1,9 @@
 path 		= require 'path'
 gulp 		= require 'gulp'
 jade        = require 'gulp-jade'
-handleError = require '../util/handle_error'
 gulpif      = require 'gulp-if'
+browserSync = require 'browser-sync'
+handleError = require '../util/handle_error'
 
 development = process.env.NODE_ENV is 'development'
 production  = process.env.NODE_ENV is 'production'
@@ -21,3 +22,4 @@ gulp.task 'templates', ->
 		))
 		.pipe gulp.dest exports.paths.destination
 		.on 'error', handleError
+		.pipe gulpif development, browserSync.stream()

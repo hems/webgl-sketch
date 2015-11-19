@@ -1,13 +1,13 @@
 log 	 = require 'utils/log'
-settings = require 'app/settings'
+# settings = require 'app/settings'
 
-class App
+# class App
 
-	constructor: ->
+# 	constructor: ->
 
-		window.c = log
-		c.enable = !settings.live
+# 		window.c = log
+# 		c.enable = !settings.live
 		
-		require 'webgl/main'
+# 		require 'webgl/main'
 
-module.exports = $ -> new App
+# module.exports = $ -> new App

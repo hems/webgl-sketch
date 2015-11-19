@@ -1,9 +1,5 @@
-gulp 	    = require 'gulp'
-browserSync = require 'browser-sync'
+gulp = require 'gulp'
 
-production  = process.env.NODE_ENV is 'production'
-
-# Files to watch
 paths =
 	templates: require('./templates').paths
 	styles: require('./styles').paths
@@ -11,6 +7,6 @@ paths =
 
 gulp.task "watch", ->
 
-	gulp.watch paths.templates.watch, ['templates', browserSync.reload]
+	gulp.watch paths.templates.watch, ['templates']
 	gulp.watch paths.styles.watch, ['styles']
-	gulp.watch paths.scripts.watch, ['scripts', browserSync.reload]
+	gulp.watch paths.scripts.watch, ['scripts']
