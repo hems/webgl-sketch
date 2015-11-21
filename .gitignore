@@ -3,9 +3,8 @@ bower_components
 
 .DS_Store
 
+npm-debug.log
+
 /public/css/app.css
-
-/public/js/app.js
-
-/public/js/vendor.js
-
+/public/js/bundle.js.map
+/public/js/bundle.js

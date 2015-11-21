@@ -4,11 +4,17 @@ head
 
 	meta(charset='utf-8')
 	title webgl-app
-	link(rel="stylesheet", href="css/app.css")
+
+	if production
+		link(rel="stylesheet", href="css/app.min.css")
+	else
+		link(rel="stylesheet", href="css/app.css")
 
 body(style="background-color: black")
 
 	main#app
 	a#dpr(href="http://ivxvixviii.io")
-	script(src="js/vendor.js")
-	script(src="js/app.js")
+	if production	
+		script(src="js/bundle.min.js")
+	else
+		script(src="js/bundle.js")
