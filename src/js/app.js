@@ -1,63 +1,51 @@
 import THREE from 'three.js';
 import * as flags from './flags';
-import gui from './gui';
+import {gui} from './controllers/gui';
 import Screen from './screen';
 import * as c from './log';
+import lights from './webgl/lights'
+
+import {cameraDev, cameraUser} from './webgl/cameras';
+const renderer = require('./webgl/renderer')
+const scene = require('./webgl/scene');
 const OrbitControls = require('three-orbit-controls')(THREE);
 
+
+
 class App{
-	
+
 	constructor(){
 
 		c.enable = true;
 
 		c.log('IVXVIXVIII');
 
+		this.zoom( cameraDev, 100 );
+
 		// Renderer
-		this.renderer = new THREE.WebGLRenderer({ antialias: true });
-		
-		this.renderer.setPixelRatio( window.devicePixelRatio );
-		this.renderer.setSize( Screen.width, Screen.height );
+		document.body.appendChild( renderer.domElement )
 
-		document.body.appendChild( this.renderer.domElement );
-
-		// Scene
-		this.scene = new THREE.Scene();
-
-		// Cameras
-		this.cameras = {
-			user: new THREE.PerspectiveCamera( 65, Screen.width / Screen.height, 0.1, 100000 ),
-			dev: new THREE.PerspectiveCamera( 65, Screen.width / Screen.height, 0.1, 100000 )
-		};	
-
-		this.zoom( this.cameras.dev, 100 );
+		// Lights
+		for( let id in lights ){
+			scene.add(lights[id]);
+		};
 
 		// Helpers
 		if( flags.showHelpers ){
-			this.scene.add( new THREE.GridHelper( 50, 10 ) );
-			this.scene.add( new THREE.AxisHelper( 10 ) );
+			scene.add( new THREE.GridHelper( 50, 10 ) );
+			scene.add( new THREE.AxisHelper( 10 ) );
 		}
 
-		// Lights
-		const lights = new Map();
-		
-		lights.set('ambient', new THREE.AmbientLight( 0x444444 ));
-		lights.set('directional', new THREE.DirectionalLight( 0x444444 ));
-
-		lights.get('directional').position.set( 0, 1, 0 );
-		lights.get('directional').castShadow = true;
-
-		for( let [key, light] of lights ){
-			this.scene.add(light);
-		};
-
 		// Controls
-		this.controls = new OrbitControls( this.cameras.dev, this.renderer.domElement );
+		this.controls = new OrbitControls( cameraDev, renderer.domElement );
 
 		// Bind
-		Screen.on('resize', this.resize.bind(this));
-		
+		this.bind()
 		this.update();
+	}
+
+	bind() {
+		Screen.on('resize', this.resize.bind(this));
 	}
 
 	zoom( camera, zoom ){
@@ -70,11 +58,11 @@ class App{
 		requestAnimationFrame( this.update.bind(this) );
 
 		if( flags.debug ){
-			this.render( this.cameras.dev,  0, 0, 1, 1 );
-			this.render( this.cameras.user,  0, 0, 0.25, 0.25 );
+			this.render( cameraDev,  0, 0, 1, 1 );
+			this.render( cameraUser,  0, 0, 0.25, 0.25 );
 		} else {
-			this.render( this.cameras.dev,  0, 0, 0.25, 0.25 );
-			this.render( this.cameras.user,  0, 0, 1, 1 );
+			this.render( cameraDev,  0, 0, 0.25, 0.25 );
+			this.render( cameraUser,  0, 0, 1, 1 );
 		}
 	}
 
@@ -85,26 +73,26 @@ class App{
 		width  *= Screen.width;
 		height *= Screen.height;
 
-		this.cameras.dev.updateProjectionMatrix();
-		this.cameras.user.updateProjectionMatrix();
+		cameraDev.updateProjectionMatrix();
+		cameraUser.updateProjectionMatrix();
 
-		this.renderer.setViewport( left, bottom, width, height );
-		this.renderer.setScissor( left, bottom, width, height );
-		this.renderer.enableScissorTest( true );
-		this.renderer.setClearColor( 0x121212 );
+		renderer.setViewport( left, bottom, width, height );
+		renderer.setScissor( left, bottom, width, height );
+		renderer.enableScissorTest( true );
+		renderer.setClearColor( 0x121212 );
 
-		this.renderer.render( this.scene, camera );
+		renderer.render( scene, camera );
 	}
 
 	resize( ){
 
-		this.cameras.dev.aspect  = Screen.width / Screen.height;
-		this.cameras.user.aspect = Screen.width / Screen.height;
-		
-		this.cameras.dev.updateProjectionMatrix()
-		this.cameras.user.updateProjectionMatrix()
+		cameraDev.aspect  = Screen.width / Screen.height;
+		cameraUser.aspect = Screen.width / Screen.height;
 
-		this.renderer.setSize( Screen.width, Screen.height );
+		cameraDev.updateProjectionMatrix()
+		cameraUser.updateProjectionMatrix()
+
+		renderer.setSize( Screen.width, Screen.height );
 	}
 }
 
