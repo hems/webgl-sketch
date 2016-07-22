@@ -1,5 +1,9 @@
-import THREE from 'three.js'
-import Screen from '../screen'
+import THREE from 'three'
 
-export const cameraDev = new THREE.PerspectiveCamera( 65, Screen.width / Screen.height, 0.1, 100000 )
-export const cameraUser = new THREE.PerspectiveCamera( 65, Screen.width / Screen.height, 0.1, 100000 )
+const fov = 65
+const ratio = window.innerWidth / window.innerHeight
+const near = 0.1
+const far = 100000
+
+export const cameraDev = new THREE.PerspectiveCamera(fov, ratio, near, far)
+export const cameraUser = new THREE.PerspectiveCamera(fov, ratio, near, far)

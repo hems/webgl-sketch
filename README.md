@@ -1,4 +1,4 @@
-webgl-app
-=========
+webgl-sketch
+===========-
 
-Simple webgl app for projects using coffeescript / jade / stylus.
+A simple webgl sketch framework using three.

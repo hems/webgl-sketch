@@ -1,9 +1,10 @@
-import THREE from 'three.js'
-import Screen from '../screen';
+import THREE from 'three'
 
-const renderer = new THREE.WebGLRenderer({ antialias: true })
+const renderer = new THREE.WebGLRenderer({
+	antialias: true
+})
 
-renderer.setPixelRatio( window.devicePixelRatio )
-renderer.setSize( Screen.width, Screen.height )
+renderer.setPixelRatio(window.devicePixelRatio)
+renderer.setSize(window.innerWidth, window.innerHeight)
 
 module.exports = renderer
