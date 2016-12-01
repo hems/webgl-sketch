@@ -62,7 +62,7 @@
     "shelljs": "^0.7.5",
     "sono": "git+ssh://git@github.com/stinkdigital/sono.git#0.1.83",
     "three": "^0.82.0",
-    "three-orbit-controls": "^72.0.0"
+    "stats-js": "^1.0.0-alpha1"
   },
   "pre-push": [
     "lint"

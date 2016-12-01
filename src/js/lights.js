@@ -4,7 +4,7 @@ import {
 } from 'three';
 import {
 	gui,
-} from '../gui';
+} from './gui';
 
 // Lights
 const controller = {

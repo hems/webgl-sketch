@@ -1,6 +1,6 @@
 import {
 	DEV,
-} from './constants';
+} from '../constants';
 
 /**
  * console wrapper with line numbers

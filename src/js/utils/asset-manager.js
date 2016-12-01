@@ -1,4 +1,4 @@
-import { log, warn } from '../console';
+import { log, warn } from './console';
 const find = require('lodash/find');
 
 export default class AssetManager {

@@ -11,21 +11,24 @@ import {
 	log,
 	warn,
 	info,
-} from './console';
-import lights from './webgl/lights';
+} from './utils/console';
+import lights from './lights';
 import {
 	cameraDev,
 	cameraUser,
-} from './webgl/cameras';
-import renderer from './webgl/renderer';
-import scene from './webgl/scene';
+} from './cameras';
+import renderer from './renderer';
+import scene from './scene';
 import OrbitControls from './lib/three/orbit-controls';
 import {
 	SHOW_HELPERS,
+	SHOW_STATS,
 } from './constants';
 import AssetLoader from './utils/asset-loader';
 import AssetManager from './asset-manager';
 import ASSETS from './assets';
+import RenderStats from './lib/three/render-stats';
+import stats from './lib/stats';
 
 class App {
 
@@ -44,6 +47,16 @@ class App {
 		if (SHOW_HELPERS) {
 			scene.add(new GridHelper(50, 10));
 			scene.add(new AxisHelper(10));
+		}
+
+		// Stats
+		if (SHOW_STATS) {
+			this._renderStats = new RenderStats();
+			this._renderStats.domElement.style.position = 'absolute';
+			this._renderStats.domElement.style.left = '0px';
+			this._renderStats.domElement.style.top = '48px';
+			document.body.appendChild(this._renderStats.domElement);
+			document.body.appendChild(stats.domElement);
 		}
 
 		// Controls
@@ -111,12 +124,21 @@ class App {
 	_update() {
 		requestAnimationFrame(this._updateFunction);
 
+		if (SHOW_HELPERS) {
+			stats.begin();
+		}
+
 		if (flags.cameraDev) {
 			this._render(cameraDev, 0, 0, 1, 1);
 			this._render(cameraUser, 0, 0, 0.25, 0.25);
 		} else {
 			this._render(cameraDev, 0, 0, 0.25, 0.25);
 			this._render(cameraUser, 0, 0, 1, 1);
+		}
+
+		if (SHOW_HELPERS) {
+			this._renderStats.update(renderer);
+			stats.end();
 		}
 	}
 

@@ -2,7 +2,7 @@ import ImageLoader from './image-loader';
 import JsonLoader from './json-loader';
 import objectAssign from 'object-assign';
 import EventDispatcher from 'happens';
-import { log } from '../../console';
+import { log } from '../console';
 import Detector from '@stinkdigital/detector';
 
 const loaderDebug = false;
@@ -13,7 +13,7 @@ div.style.position = 'absolute';
 div.style.left = '0';
 div.style.top = '0';
 div.style.zIndex = '1000000000';
-div.style.color = 'black';
+div.style.color = 'white';
 div.style.width = '320px';
 div.style.height = '200px';
 div.style.display = 'none';
