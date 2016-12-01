@@ -1,10 +1,13 @@
-import THREE from 'three'
+import {
+	AmbientLight,
+	DirectionalLight,
+} from 'three'
 import {
 	scene
 } from './scene'
 import {
-	gui
-} from '../controllers/gui';
+	gui,
+} from '../gui';
 
 // Lights
 let controller = {
@@ -13,12 +16,11 @@ let controller = {
 }
 
 let lights = {
-	ambient: new THREE.AmbientLight(controller.ambient),
-	directional: new THREE.DirectionalLight(controller.directional, 0.6)
+	ambient: new AmbientLight(controller.ambient),
+	directional: new DirectionalLight(controller.directional, 0.6)
 }
 
-lights.directional.position.set(-10, 3.3, -10)
-lights.directional.castShadow = true
+lights.directional.position.set(1, 1, 1)
 
 let lightFolder = gui.addFolder('lights')
 lightFolder.open()

@@ -1,28 +1,35 @@
-import THREE from 'three'
+import {
+	GridHelper,
+	AxisHelper,
+	Vector3,
+} from 'three'
 import * as flags from './flags'
 import {
-	gui
-} from './controllers/gui'
-import * as c from './log'
+	guiFlags,
+} from './gui'
+import {
+	log
+} from './console'
 import lights from './webgl/lights'
 import {
 	cameraDev,
 	cameraUser
 } from './webgl/cameras'
-
-const renderer = require('./webgl/renderer')
-const scene = require('./webgl/scene')
-const OrbitControls = require('three-orbit-controls')(THREE)
+import renderer from './webgl/renderer'
+import scene from './webgl/scene'
+import OrbitControls from './lib/three/orbit-controls'
+import {
+	SHOW_HELPERS
+} from './constants';
+import AssetLoader from './utils/asset-loader';
+import AssetManager from './asset-manager';
+import ASSETS from './assets';
 
 class App {
 
 	constructor() {
 
-		c.enable = true
-
-		c.log('IVXVIXVIII')
-
-		this.zoom(cameraDev, 100)
+		log('IVXVIXVIII')
 
 		// Renderer
 		document.body.appendChild(renderer.domElement)
@@ -33,42 +40,87 @@ class App {
 		}
 
 		// Helpers
-		if (flags.showHelpers) {
-			scene.add(new THREE.GridHelper(50, 10))
-			scene.add(new THREE.AxisHelper(10))
+		if (SHOW_HELPERS) {
+			scene.add(new GridHelper(50, 10))
+			scene.add(new AxisHelper(10))
 		}
 
 		// Controls
 		this.controls = new OrbitControls(cameraDev, renderer.domElement)
 
-		// Bind
-		this.bind()
-		this.update()
+		// Camera position
+		this.zoom(cameraDev, 100)
+
+		// Gui
+		guiFlags.add(flags, 'cameraDev');
+
+		this._loadAssets()
+			.then(this._onAssetsLoaded)
+			.catch(error => {
+				console.log('error creating scene');
+			})
 	}
 
-	bind() {
-		window.addEventListener('resize', this.resize.bind(this), false)
+	_loadAssets() {
+		console.log('load assets');
+		return new Promise((resolve, reject) => {
+			AssetLoader('default', ASSETS).then(response => {
+				AssetManager.set(response)
+				resolve();
+			}).catch(error => {
+				reject(error);
+			});
+		});
+	}
+
+	_onAssetsLoaded = () => {
+		this._setupScene()
+			.then(this._onSceneReady)
+			.catch(error => {
+				console.log('error creating scene');
+			})
+	}
+
+	_setupScene = () => {
+		return new Promise((resolve, reject) => {
+			try {
+				resolve();
+			} catch (error) {
+				reject(error);
+			}
+		});
+	}
+
+	_onSceneReady = () => {
+		console.log('scene ready');
+		this._updateFunction = this._update.bind(this);
+		this._bindListeners()
+		this._update()
+	}
+
+	_bindListeners() {
+		window.addEventListener('resize', this._onResize, false)
 	}
 
 	zoom(camera, zoom) {
 		camera.position.set(1 * zoom, 0.75 * zoom, 1 * zoom)
-		camera.lookAt(new THREE.Vector3())
+		camera.lookAt(new Vector3())
 	}
 
-	update() {
+	_update() {
 
-		requestAnimationFrame(this.update.bind(this))
+		requestAnimationFrame(this._updateFunction)
 
-		if (flags.debug) {
-			this.render(cameraDev, 0, 0, 1, 1)
-			this.render(cameraUser, 0, 0, 0.25, 0.25)
+		if (flags.cameraDev) {
+			this._render(cameraDev, 0, 0, 1, 1)
+			this._render(cameraUser, 0, 0, 0.25, 0.25)
 		} else {
-			this.render(cameraDev, 0, 0, 0.25, 0.25)
-			this.render(cameraUser, 0, 0, 1, 1)
+			this._render(cameraDev, 0, 0, 0.25, 0.25)
+			this._render(cameraUser, 0, 0, 1, 1)
 		}
 	}
 
-	render(camera, left, bottom, width, height) {
+	_render(camera, left, bottom, width, height) {
 
 		left *= window.innerWidth
 		bottom *= window.innerHeight
@@ -86,7 +138,7 @@ class App {
 		renderer.render(scene, camera)
 	}
 
-	resize() {
+	_onResize = () => {
 
 		cameraDev.aspect = window.innerWidth / window.innerHeight
 		cameraUser.aspect = window.innerWidth / window.innerHeight

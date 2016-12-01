@@ -1,10 +1,10 @@
-import THREE from 'three'
+import { WebGLRenderer } from 'three'
 
-const renderer = new THREE.WebGLRenderer({
+const renderer = new WebGLRenderer({
 	antialias: true
 })
 
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(window.innerWidth, window.innerHeight)
 
-module.exports = renderer
+export default renderer

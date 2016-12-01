@@ -1,3 +1,3 @@
-import THREE from 'three'
+import { Scene } from 'three'
 
-module.exports = new THREE.Scene()
+module.exports = new Scene()
