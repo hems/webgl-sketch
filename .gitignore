@@ -8,3 +8,5 @@ npm-debug.log
 /public/css/app.css
 /public/js/bundle.js.map
 /public/js/bundle.js
+/.eslintcache
+/dist/assets/js/bundle.js

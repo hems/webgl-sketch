@@ -1,3 +1,3 @@
-import { Scene } from 'three'
+import { Scene } from 'three';
 
-module.exports = new Scene()
+module.exports = new Scene();

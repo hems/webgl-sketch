@@ -1,10 +1,10 @@
-import { WebGLRenderer } from 'three'
+import { WebGLRenderer } from 'three';
 
 const renderer = new WebGLRenderer({
-	antialias: true
-})
+	antialias: true,
+});
 
-renderer.setPixelRatio(window.devicePixelRatio)
-renderer.setSize(window.innerWidth, window.innerHeight)
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
 
-export default renderer
+export default renderer;
