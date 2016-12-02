@@ -4,14 +4,15 @@
   "description": "webgl-sketch",
   "scripts": {
     "setup": "npm i",
-    "start": "concurrently 'npm run server' 'npm run watch:css' 'npm run watch:js' 'npm run watch:html'",
-    "server": "live-server ./dist --port 3000 --quiet --watch ./dist --watch ./src --wait 0",
-    "watch:css": "node-sass --watch ./src/styles/app.scss dist/css/app.css",
+    "start": "concurrently 'npm run server' 'npm run watch:css' 'npm run watch:js' 'npm run watch:html' 'npm run assets'",
+    "server": "live-server ./build --port 3000 --quiet --watch ./build --watch ./src --wait 0",
+    "watch:css": "node-sass ./src/styles/app.scss build/assets/css/app.css; node-sass --watch ./src/styles/app.scss build/assets/css/app.css",
     "watch:js": "webpack --colors --watch",
-    "watch:html": "pug --watch ./src/templates/*.pug --pretty --out ./dist",
-    "assets:textures": "shjs scripts/textures",
-    "assets:geometry": "shjs scripts/geometry",
-    "assets:audio": "shjs scripts/audio",
+    "watch:html": "pug --watch ./src/templates/*.pug --pretty --out ./build",
+    "assets": "cp -R ./assets ./build",
+    "assets:textures": "shjs scripts/textures; npm run assets;",
+    "assets:geometry": "shjs scripts/geometry; npm run assets;",
+    "assets:audio": "shjs scripts/audio; npm run assets;",
     "lint": "npm run lint:js && npm run lint:scss",
     "lint:js": "npm run lint:eslint",
     "lint:eslint": "eslint --fix --ext .js ./src --cache",
@@ -19,26 +20,27 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/IVXVIXVIII/webgl-sketch.git"
+    "url": "https://github.com/amelierosser/webgl-sketch.git"
   },
   "author": "David Paul Rosser <info@davidpaulrosser.co.uk> (http://ivxvixviii.io/)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/IVXVIXVIII/webgl-sketch/issues"
+    "url": "https://github.com/amelierosser/webgl-sketch/issues"
   },
-  "homepage": "https://github.com/IVXVIXVIII/webgl-sketch",
+  "homepage": "https://github.com/amelierosser/webgl-sketch",
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-eslint": "6.1.2",
     "babel-loader": "^6.2.4",
+    "babel-plugin-module-resolver": "^2.4.0",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-stage-0": "^6.16.0",
     "concurrently": "^2.0.0",
     "eslint": "2.13.1",
     "eslint-config-airbnb": "9.0.1",
-    "eslint-import-resolver-babel-module": "^2.0.1",
+    "eslint-import-resolver-babel-module": "^2.2.1",
     "eslint-import-resolver-webpack": "0.4.0",
-    "eslint-plugin-import": "^1.15.0",
+    "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "2.0.1",
     "eslint-plugin-react": "5.2.2",
     "globby": "^6.1.0",
@@ -54,13 +56,13 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
-    "@stinkdigital/detector": "git+ssh://git@github.com/stinkdigital/detector.git#0.1.5",
+    "@amelierosser/detector": "git+ssh://git@github.com/amelierosser/detector.git#0.1.6",
     "dat-gui": "^0.5.0",
     "happens": "^0.6.0",
     "lodash": "^4.17.2",
     "object-assign": "^4.1.0",
     "shelljs": "^0.7.5",
-    "sono": "git+ssh://git@github.com/stinkdigital/sono.git#0.1.83",
+    "sono": "git+ssh://git@github.com/amelierosser/sono.git#0.1.83",
     "three": "^0.82.0",
     "stats-js": "^1.0.0-alpha1"
   },
@@ -114,6 +116,11 @@
         1,
         "tab"
       ]
+    },
+    "settings": {
+      "import/resolver": {
+        "babel-module": {}
+      }
     }
   }
 }

@@ -20,7 +20,7 @@ function generate(id) {
 
 		const filesMp3 = `${__dirname}/../src/assets/audio/${id}/*.mp3`
 		const filesWav = `${__dirname}/../src/assets/audio/${id}/*.wav`
-		const assetsPathDest = `${__dirname}/../dist/assets/audio/${id}`
+		const assetsPathDest = `${__dirname}/../assets/audio/${id}`
 
 		function convertFiles(files) {
 			const tmp = [];

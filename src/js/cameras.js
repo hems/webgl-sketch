@@ -1,6 +1,6 @@
 import { PerspectiveCamera } from 'three';
 
-const fov = 65;
+const fov = 70;
 const ratio = window.innerWidth / window.innerHeight;
 const near = 0.1;
 const far = 100000;

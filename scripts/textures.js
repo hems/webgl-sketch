@@ -37,9 +37,9 @@ function resize() {
 		return new Promise((resolve, reject) => {
 			var converts = [];
 
-			const filesJpg = `${__dirname}/../dist/image/webgl/desktop/${id}/*.jpg`;
-			const filesPng = `${__dirname}/../dist/image/webgl/desktop/${id}/*.png`;
-			const assetsPathDest = `${__dirname}/../dist/assets/image/webgl/device/${id}`;
+			const filesJpg = `${__dirname}/../build/image/webgl/desktop/${id}/*.jpg`;
+			const filesPng = `${__dirname}/../build/image/webgl/desktop/${id}/*.png`;
+			const assetsPathDest = `${__dirname}/../assets/image/webgl/device/${id}`;
 
 			function convertFiles(files) {
 				const tmp = [];
@@ -79,7 +79,7 @@ function resize() {
 console.log('Textures compressing');
 
 const path = `${__dirname}/../src/assets/image/webgl/**/*.{png,jpg}`;
-const dest = `${__dirname}/../dist/image/`;
+const dest = `${__dirname}/../assets/image/`;
 
 const ignoredPaths = [];
 ignoredDirs.forEach(dir => {

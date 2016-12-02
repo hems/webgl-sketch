@@ -1,4 +1,4 @@
 src/assets/*
-dist/*
+build/*
 src/**/*.glsl.js
 src/js/lib/*

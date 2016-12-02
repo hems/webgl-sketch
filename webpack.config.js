@@ -1,20 +1,20 @@
 module.exports = {
 	entry: {
-		'app': './src/js/app.js'
+		app: './src/js/app.js',
 	},
 	output: {
-		path: './dist/assets/js',
-		filename: "bundle.js"
+		path: './build/assets/js',
+		filename: 'bundle.js',
 	},
 	module: {
 		loaders: [{
 			test: /\.js$/,
 			exclude: /node_modules/,
-			loader: "babel",
+			loader: 'babel',
 			query: {
-				presets: ['es2015', 'stage-0']
-			}
-		}]
+				presets: ['es2015', 'stage-0'],
+			},
+		}],
 	},
 	quiet: true,
 	noInfo: false,
@@ -25,6 +25,6 @@ module.exports = {
 		hash: false,
 		timings: false,
 		chunks: false,
-		chunkModules: false
+		chunkModules: false,
 	},
-}
+};

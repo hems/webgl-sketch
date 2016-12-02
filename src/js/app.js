@@ -2,6 +2,8 @@ import {
 	GridHelper,
 	AxisHelper,
 	Vector3,
+	MeshBasicMaterial,
+	Mesh,
 } from 'three';
 import * as flags from './flags';
 import {
@@ -11,7 +13,7 @@ import {
 	log,
 	warn,
 	info,
-} from './utils/console';
+} from 'utils/console';
 import lights from './lights';
 import {
 	cameraDev,
@@ -19,16 +21,27 @@ import {
 } from './cameras';
 import renderer from './renderer';
 import scene from './scene';
-import OrbitControls from './lib/three/orbit-controls';
+import OrbitControls from 'lib/three/orbit-controls';
 import {
+	VIVE_AVAILABLE,
 	SHOW_HELPERS,
 	SHOW_STATS,
 } from './constants';
-import AssetLoader from './utils/asset-loader';
+import AssetLoader from 'utils/asset-loader';
 import AssetManager from './asset-manager';
 import ASSETS from './assets';
-import RenderStats from './lib/three/render-stats';
+import RenderStats from 'lib/three/render-stats';
 import stats from './lib/stats';
+import {
+	parseGeometry,
+} from 'lib/three/utils';
+import {
+	effect,
+	controls,
+	controller0,
+	controller1,
+} from './vive';
+import WEBVR from 'lib/three/webvr';
 
 class App {
 
@@ -68,6 +81,7 @@ class App {
 		// Gui
 		guiFlags.add(flags, 'cameraDev');
 
+
 		this._loadAssets()
 			.then(this._onAssetsLoaded)
 			.catch(error => {
@@ -98,6 +112,23 @@ class App {
 	_setupScene() {
 		return new Promise((resolve, reject) => {
 			try {
+				if (VIVE_AVAILABLE) {
+					// Add vive detection
+					const model = AssetManager.getModel('vr_controller_vive_1_5', 'vive-controller');
+					const geometry = parseGeometry(model);
+					const material = new MeshBasicMaterial();
+					const mesh = new Mesh(geometry, material);
+					mesh.material.map = AssetManager.get('vive-texture');
+					mesh.material.specularMap = AssetManager.get('vive-spec');
+					controller0.add(mesh.clone());
+					controller1.add(mesh.clone());
+
+					scene.add(controller0);
+					scene.add(controller1);
+
+					document.body.appendChild(WEBVR.getButton(effect));
+				}
+
 				resolve();
 			} catch (error) {
 				reject(error);
@@ -122,18 +153,21 @@ class App {
 	}
 
 	_update() {
-		requestAnimationFrame(this._updateFunction);
+		effect.requestAnimationFrame(this._updateFunction);
 
 		if (SHOW_HELPERS) {
 			stats.begin();
 		}
 
-		if (flags.cameraDev) {
-			this._render(cameraDev, 0, 0, 1, 1);
-			this._render(cameraUser, 0, 0, 0.25, 0.25);
+		controls.update();
+		controller0.update();
+		controller1.update();
+
+		if (flags.cameraDev && !effect.isPresenting) {
+			this._renderDev(cameraDev, 0, 0, 1, 1);
+			this._renderDev(cameraUser, 0, 0, 0.25, 0.25);
 		} else {
-			this._render(cameraDev, 0, 0, 0.25, 0.25);
-			this._render(cameraUser, 0, 0, 1, 1);
+			this._renderMain(cameraUser, 0, 0, 1, 1);
 		}
 
 		if (SHOW_HELPERS) {
@@ -142,14 +176,11 @@ class App {
 		}
 	}
 
-	_render(camera, left, bottom, width, height) {
+	_renderDev(camera, left, bottom, width, height) {
 		left *= window.innerWidth;
 		bottom *= window.innerHeight;
 		width *= window.innerWidth;
 		height *= window.innerHeight;
-
-		cameraDev.updateProjectionMatrix();
-		cameraUser.updateProjectionMatrix();
 
 		renderer.setViewport(left, bottom, width, height);
 		renderer.setScissor(left, bottom, width, height);
@@ -157,6 +188,19 @@ class App {
 		renderer.setClearColor(0x121212);
 
 		renderer.render(scene, camera);
+	}
+
+	_renderMain(camera, left, bottom, width, height) {
+		left *= window.innerWidth;
+		bottom *= window.innerHeight;
+		width *= window.innerWidth;
+		height *= window.innerHeight;
+
+		renderer.setViewport(left, bottom, width, height);
+		renderer.setScissor(left, bottom, width, height);
+		renderer.setScissorTest(true);
+		renderer.setClearColor(0x121212);
+		effect.render(scene, camera);
 	}
 
 	_onResize = () => {

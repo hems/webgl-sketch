@@ -24,5 +24,17 @@ const ASSETS = [{
 	id: 'triangle',
 	type: 'json',
 	src: `${JSON_DIR_SCENE_DEFAULT}/triangle/geometry.json`,
+}, {
+	id: 'vive-controller',
+	type: 'json',
+	src: `${JSON_DIR_SCENE_DEFAULT}/vive/geometry.json`,
+}, {
+	id: 'vive-spec',
+	type: 'texture',
+	src: `${IMAGE_DIR_SCENE_DEFAULT}/vive/onepointfive_spec.png`,
+}, {
+	id: 'vive-texture',
+	type: 'texture',
+	src: `${IMAGE_DIR_SCENE_DEFAULT}/vive/onepointfive_texture.png`,
 }];
 export default ASSETS;

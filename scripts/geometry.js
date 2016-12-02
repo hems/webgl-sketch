@@ -23,6 +23,12 @@ assets.push({
 	dir: `${assetsSourceDir}/default/cube`,
 	platform: 'all',
 });
+assets.push({
+	filename: 'vive',
+	scene: 'default',
+	dir: `${assetsSourceDir}/default/vive`,
+	platform: 'all',
+});
 
 function objToJson(file, output) {
 	return new Promise((resolve, reject) => {
@@ -92,8 +98,8 @@ function convert(asset) {
 				const outfile = `${asset.dir}/${filename}`;
 
 				const final = [];
-				const assetsDesktop = `${__dirname}/../dist/assets/json/webgl/desktop/${asset.scene}/${asset.filename}`;
-				const assetsDevice = `${__dirname}/../dist/assets/json/webgl/device/${asset.scene}/${asset.filename}`;
+				const assetsDesktop = `${__dirname}/../assets/json/webgl/desktop/${asset.scene}/${asset.filename}`;
+				const assetsDevice = `${__dirname}/../assets/json/webgl/device/${asset.scene}/${asset.filename}`;
 
 				switch (asset.platform) {
 					case 'desktop':
