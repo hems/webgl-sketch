@@ -22,7 +22,7 @@
     "type": "git",
     "url": "https://github.com/amelierosser/webgl-sketch.git"
   },
-  "author": "David Paul Rosser <info@davidpaulrosser.co.uk> (http://ivxvixviii.io/)",
+  "author": "Amelie Rosser <amelierosser1986@gmail.com> (https://www.ixviii.io/)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/amelierosser/webgl-sketch/issues"
@@ -56,15 +56,15 @@
     "webpack": "^1.12.14"
   },
   "dependencies": {
-    "@amelierosser/detector": "git+ssh://git@github.com/amelierosser/detector.git#0.1.6",
     "dat-gui": "^0.5.0",
     "happens": "^0.6.0",
     "lodash": "^4.17.2",
     "object-assign": "^4.1.0",
     "shelljs": "^0.7.5",
-    "sono": "git+ssh://git@github.com/amelierosser/sono.git#0.1.83",
     "three": "^0.82.0",
-    "stats-js": "^1.0.0-alpha1"
+    "stats-js": "^1.0.0-alpha1",
+    "@stinkdigital/sono": "git+ssh://git@github.com/stinkdigital/sono.git#0.1.85",
+    "@stinkdigital/detector": "git+ssh://git@github.com/stinkdigital/detector.git#0.1.5"
   },
   "pre-push": [
     "lint"

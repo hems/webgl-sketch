@@ -31,10 +31,10 @@ const ASSETS = [{
 }, {
 	id: 'vive-spec',
 	type: 'texture',
-	src: `${IMAGE_DIR_SCENE_DEFAULT}/vive/onepointfive_spec.png`,
+	src: `${IMAGE_DIR_SCENE_DEFAULT}/onepointfive_spec.png`,
 }, {
 	id: 'vive-texture',
 	type: 'texture',
-	src: `${IMAGE_DIR_SCENE_DEFAULT}/vive/onepointfive_texture.png`,
+	src: `${IMAGE_DIR_SCENE_DEFAULT}/onepointfive_texture.png`,
 }];
 export default ASSETS;

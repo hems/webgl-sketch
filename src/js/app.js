@@ -46,7 +46,7 @@ import WEBVR from 'lib/three/webvr';
 class App {
 
 	constructor() {
-		log('IVXVIXVIII');
+		log('ixviii');
 
 		// Renderer
 		document.body.appendChild(renderer.domElement);
