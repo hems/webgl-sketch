@@ -76,7 +76,8 @@ class App {
 		this.controls = new OrbitControls(cameraDev, renderer.domElement);
 
 		// Camera position
-		this.zoom(cameraDev, 100);
+		this.zoom(cameraDev, 50);
+		this.zoom(cameraUser, 50);
 
 		// Gui
 		guiFlags.add(flags, 'cameraDev');
@@ -155,7 +156,7 @@ class App {
 	_update() {
 		effect.requestAnimationFrame(this._updateFunction);
 
-		if (SHOW_HELPERS) {
+		if (SHOW_STATS) {
 			stats.begin();
 		}
 
@@ -170,7 +171,7 @@ class App {
 			this._renderMain(cameraUser, 0, 0, 1, 1);
 		}
 
-		if (SHOW_HELPERS) {
+		if (SHOW_STATS) {
 			this._renderStats.update(renderer);
 			stats.end();
 		}
