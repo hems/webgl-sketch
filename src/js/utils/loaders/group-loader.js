@@ -53,7 +53,7 @@ export default class GroupLoader {
 		}
 		if (this._loaded === this._total) {
 			const assets = [];
-			this._loaders.forEach(loader => {
+			this._loaders.forEach((loader) => {
 				assets.push(loader.asset);
 			});
 			this.emit('loaded', assets);
@@ -75,7 +75,7 @@ export default class GroupLoader {
 		this._loaders = [];
 		const FileLoaders = objectAssign({}, this.defaultLoaders, customLoaders);
 
-		manifest.forEach(asset => {
+		manifest.forEach((asset) => {
 			if (FileLoaders[asset.type] !== undefined) {
 				this._loaders.push(new FileLoaders[asset.type](asset));
 			}

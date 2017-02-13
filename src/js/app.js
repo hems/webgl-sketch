@@ -1,19 +1,27 @@
-import THREE, {
+import {
 	GridHelper,
 	AxisHelper,
 	Vector3,
 	MeshBasicMaterial,
 	Mesh,
 } from 'three';
-import * as flags from './flags';
-import {
-	guiFlags,
-} from './gui';
 import {
 	log,
 	warn,
 	info,
 } from 'utils/console';
+import OrbitControls from 'lib/three/examples/OrbitControls';
+import AssetLoader from 'utils/asset-loader';
+import RenderStats from 'lib/three/render-stats';
+import stats from 'lib/stats';
+import {
+	parseGeometry,
+} from 'lib/three/utils';
+import WEBVR from 'lib/three/examples/WebVR';
+import * as flags from './flags';
+import {
+	guiFlags,
+} from './gui';
 import lights from './lights';
 import {
 	cameraDev,
@@ -21,27 +29,19 @@ import {
 } from './cameras';
 import renderer from './renderer';
 import scene from './scene';
-import OrbitControls from 'lib/three/examples/OrbitControls';
-import {
-	VIVE_AVAILABLE,
-	SHOW_HELPERS,
-	SHOW_STATS,
-} from './constants';
-import AssetLoader from 'utils/asset-loader';
-import AssetManager from './asset-manager';
-import ASSETS from './assets';
-import RenderStats from 'lib/three/render-stats';
-import stats from './lib/stats';
-import {
-	parseGeometry,
-} from 'lib/three/utils';
 import {
 	effect,
 	controls,
 	controller0,
 	controller1,
 } from './vive';
-import WEBVR from 'lib/three/examples/WebVR';
+import {
+	VIVE_AVAILABLE,
+	SHOW_HELPERS,
+	SHOW_STATS,
+} from './constants';
+import AssetManager from './asset-manager';
+import ASSETS from './assets';
 
 class App {
 
@@ -52,7 +52,7 @@ class App {
 		document.body.appendChild(renderer.domElement);
 
 		// Lights
-		Object.keys(lights).forEach(light => {
+		Object.keys(lights).forEach((light) => {
 			scene.add(lights[light]);
 		});
 
@@ -85,7 +85,7 @@ class App {
 
 		this._loadAssets()
 			.then(this._onAssetsLoaded)
-			.catch(error => {
+			.catch((error) => {
 				warn('error creating scene', error);
 			});
 	}
@@ -93,10 +93,10 @@ class App {
 	_loadAssets() {
 		info('load assets');
 		return new Promise((resolve, reject) => {
-			AssetLoader('default', ASSETS).then(response => {
+			AssetLoader('default', ASSETS).then((response) => {
 				AssetManager.set(response);
 				resolve();
-			}).catch(error => {
+			}).catch((error) => {
 				reject(error);
 			});
 		});
@@ -105,7 +105,7 @@ class App {
 	_onAssetsLoaded = () => {
 		this._setupScene()
 			.then(this._onSceneReady)
-			.catch(error => {
+			.catch((error) => {
 				warn('error creating scene', error);
 			});
 	}

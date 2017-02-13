@@ -10,7 +10,7 @@ export default function load(id, assets) {
 	return new Promise((resolve, reject) => {
 		const loader = new GroupLoader(id);
 		const manifest = [];
-		assets.forEach(asset => {
+		assets.forEach((asset) => {
 			if (asset.args === undefined) {
 				asset.args = {};
 			}
