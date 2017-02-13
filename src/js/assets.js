@@ -12,11 +12,13 @@ const ASSETS = [{
 	id: 'white',
 	type: 'texture',
 	src: `${IMAGE_DIR_SCENE_DEFAULT}/white.png`,
-}, {
-	id: 'track',
-	type: 'audio',
-	src: `${AUDIO_DIR_SCENE_DEFAULT}/test`,
-}, {
+},
+// {
+// 	id: 'track',
+// 	type: 'audio',
+// 	src: `${AUDIO_DIR_SCENE_DEFAULT}/test`,
+// },
+{
 	id: 'cube',
 	type: 'json',
 	src: `${JSON_DIR_SCENE_DEFAULT}/cube/geometry.json`,

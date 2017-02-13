@@ -16,7 +16,8 @@
     "lint": "npm run lint:js && npm run lint:scss",
     "lint:js": "npm run lint:eslint",
     "lint:eslint": "eslint --fix --ext .js ./src --cache",
-    "lint:scss": "scss-lint ./src/styles/*.scss"
+    "lint:scss": "scss-lint ./src/styles/*.scss",
+    "three:examples": "shjs ./scripts/three-examples"
   },
   "repository": {
     "type": "git",
@@ -30,41 +31,42 @@
   "homepage": "https://github.com/amelierosser/webgl-sketch",
   "devDependencies": {
     "babel-cli": "^6.6.5",
-    "babel-eslint": "6.1.2",
+    "babel-eslint": "7.1.1",
     "babel-loader": "^6.2.4",
     "babel-plugin-module-resolver": "^2.4.0",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-stage-0": "^6.16.0",
-    "concurrently": "^2.0.0",
-    "eslint": "2.13.1",
-    "eslint-config-airbnb": "9.0.1",
-    "eslint-import-resolver-babel-module": "^2.2.1",
-    "eslint-import-resolver-webpack": "0.4.0",
-    "eslint-plugin-import": "^1.16.0",
-    "eslint-plugin-jsx-a11y": "2.0.1",
-    "eslint-plugin-react": "5.2.2",
+    "concurrently": "^3.3.0",
+    "eslint": "3.15.0",
+    "eslint-config-airbnb": "14.1.0",
+    "eslint-import-resolver-babel-module": "^3.0.0",
+    "eslint-import-resolver-webpack": "0.8.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-react": "6.9.0",
     "globby": "^6.1.0",
     "image-size": "^0.5.0",
     "imagemin-mozjpeg": "^6.0.0",
     "imagemin-pngquant": "^5.0.0",
-    "live-server": "^0.9.2",
-    "node-sass": "^3.8.0",
+    "imports-loader": "^0.7.0",
+    "live-server": "^1.2.0",
+    "node-sass": "^4.5.0",
     "pre-push": "^0.1.1",
     "promise.pipe": "^3.0.0",
     "pug-cli": "^1.0.0-alpha6",
-    "sharp": "^0.16.2",
-    "webpack": "^1.12.14"
+    "sharp": "^0.17.2",
+    "webpack": "^2.2.1"
   },
   "dependencies": {
+    "@stinkdigital/detector": "git+ssh://git@github.com/stinkdigital/detector.git#0.1.5",
     "dat-gui": "^0.5.0",
     "happens": "^0.6.0",
     "lodash": "^4.17.2",
     "object-assign": "^4.1.0",
     "shelljs": "^0.7.5",
-    "three": "^0.82.0",
+    "sono": "^0.1.85",
     "stats-js": "^1.0.0-alpha1",
-    "@stinkdigital/sono": "git+ssh://git@github.com/stinkdigital/sono.git#0.1.85",
-    "@stinkdigital/detector": "git+ssh://git@github.com/stinkdigital/detector.git#0.1.5"
+    "three": "^0.84.0"
   },
   "pre-push": [
     "lint"

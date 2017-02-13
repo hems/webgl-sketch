@@ -1,4 +1,4 @@
-import {
+import THREE, {
 	GridHelper,
 	AxisHelper,
 	Vector3,
@@ -21,7 +21,7 @@ import {
 } from './cameras';
 import renderer from './renderer';
 import scene from './scene';
-import OrbitControls from 'lib/three/orbit-controls';
+import OrbitControls from 'lib/three/examples/OrbitControls';
 import {
 	VIVE_AVAILABLE,
 	SHOW_HELPERS,
@@ -41,7 +41,7 @@ import {
 	controller0,
 	controller1,
 } from './vive';
-import WEBVR from 'lib/three/webvr';
+import WEBVR from 'lib/three/examples/WebVR';
 
 class App {
 

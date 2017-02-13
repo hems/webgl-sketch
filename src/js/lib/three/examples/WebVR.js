@@ -1,9 +1,12 @@
-/**
+
+		
+		var WebVR;
+		/**
  * @author mrdoob / http://mrdoob.com
  * Based on @tojiro's vr-samples-utils.js
  */
 
-const WEBVR = {
+var WEBVR = {
 
 	isLatestAvailable: function () {
 
@@ -101,4 +104,5 @@ const WEBVR = {
 
 };
 
-export default WEBVR;
+		export default WebVR;
+	

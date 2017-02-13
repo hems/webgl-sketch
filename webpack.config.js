@@ -10,21 +10,12 @@ module.exports = {
 		loaders: [{
 			test: /\.js$/,
 			exclude: /node_modules/,
-			loader: 'babel',
+			loader: 'babel-loader',
 			query: {
 				presets: ['es2015', 'stage-0'],
 			},
 		}],
 	},
-	quiet: true,
-	noInfo: false,
-	stats: {
-		assets: false,
-		colors: true,
-		version: false,
-		hash: false,
-		timings: false,
-		chunks: false,
-		chunkModules: false,
-	},
+	devtool: 'source-map',
+	stats: 'minimal',
 };

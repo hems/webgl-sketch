@@ -1,6 +1,6 @@
-import VREffect from './lib/three/vr-effect';
-import ViveController from './lib/three/vive-controller';
-import VRControls from './lib/three/vr-controls';
+import VREffect from './lib/three/examples/VREffect';
+import ViveController from './lib/three/examples/ViveController';
+import VRControls from './lib/three/examples/VRControls';
 import {
 	cameraUser,
 } from './cameras';

@@ -1,4 +1,4 @@
-import { IS_DESKTOP } from '@stinkdigital/detector';
+import IS_DESKTOP from 'lib/detector/is-desktop';
 
 export const DEV = true;
 export const SHOW_HELPERS = true;
