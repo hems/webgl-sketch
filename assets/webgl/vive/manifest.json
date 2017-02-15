@@ -1,0 +1,15 @@
+{
+  "geometries": [
+    "vr_controller_vive_1_5.json"
+  ],
+  "textures": [
+    "onepointfive_spec-256.png",
+    "onepointfive_spec-512.png",
+    "onepointfive_spec-1024.png",
+    "onepointfive_spec-2048.png",
+    "onepointfive_texture-256.png",
+    "onepointfive_texture-512.png",
+    "onepointfive_texture-1024.png",
+    "onepointfive_texture-2048.png"
+  ]
+}

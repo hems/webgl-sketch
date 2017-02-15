@@ -9,15 +9,14 @@
     "watch:css": "node-sass ./src/styles/app.scss build/assets/css/app.css; node-sass --watch ./src/styles/app.scss build/assets/css/app.css",
     "watch:js": "webpack --colors --watch",
     "watch:html": "pug --watch ./src/templates/*.pug --pretty --out ./build",
-    "assets": "cp -R ./assets ./build",
-    "assets:textures": "shjs scripts/textures; npm run assets;",
-    "assets:geometry": "shjs scripts/geometry; npm run assets;",
-    "assets:audio": "shjs scripts/audio; npm run assets;",
     "lint": "npm run lint:js && npm run lint:scss",
     "lint:js": "npm run lint:eslint",
     "lint:eslint": "eslint --fix --ext .js ./src --cache",
     "lint:scss": "scss-lint ./src/styles/*.scss",
-    "three:examples": "shjs ./scripts/three-examples"
+    "assets": "cp -R ./assets ./build",
+    "assets:export": "shjs scripts/assets; npm run assets;",
+    "assets:audio": "shjs scripts/audio; npm run assets;",
+    "scripts:three:examples": "shjs ./scripts/three-examples"
   },
   "repository": {
     "type": "git",
@@ -38,32 +37,22 @@
     "babel-preset-stage-0": "^6.16.0",
     "concurrently": "^3.3.0",
     "eslint": "3.15.0",
-    "eslint-config-airbnb": "14.1.0",
-    "eslint-import-resolver-babel-module": "^3.0.0",
-    "eslint-import-resolver-webpack": "0.8.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "4.0.0",
-    "eslint-plugin-react": "6.9.0",
-    "globby": "^6.1.0",
-    "image-size": "^0.5.0",
-    "imagemin-mozjpeg": "^6.0.0",
-    "imagemin-pngquant": "^5.0.0",
-    "imports-loader": "^0.7.0",
+    "eslint-config-airbnb-base": "11.1.0",
+    "eslint-import-resolver-babel-module": "3.0.0",
+    "eslint-plugin-import": "2.2.0",
     "live-server": "^1.2.0",
     "node-sass": "^4.5.0",
     "pre-push": "^0.1.1",
-    "promise.pipe": "^3.0.0",
     "pug-cli": "^1.0.0-alpha6",
     "sharp": "^0.17.2",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "shelljs": "^0.7.5"
   },
   "dependencies": {
-    "@stinkdigital/detector": "git+ssh://git@github.com/stinkdigital/detector.git#0.1.5",
     "dat-gui": "^0.5.0",
     "happens": "^0.6.0",
     "lodash": "^4.17.2",
     "object-assign": "^4.1.0",
-    "shelljs": "^0.7.5",
     "sono": "^0.1.85",
     "stats-js": "^1.0.0-alpha1",
     "three": "^0.84.0"
@@ -73,26 +62,25 @@
   ],
   "eslintConfig": {
     "parser": "babel-eslint",
-    "extends": "airbnb",
+    "extends": "airbnb-base/legacy",
+    "settings": {
+      "import/resolver": {
+        "babel-module": {}
+      }
+    },
     "env": {
       "browser": true,
-      "node": true,
-      "mocha": true,
       "es6": true
     },
-    "plugins": [
-      "react",
-      "jsx-a11y"
-    ],
     "parserOptions": {
       "ecmaVersion": 6,
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
+      "sourceType": "module"
     },
     "rules": {
       "global-require": 0,
+      "arrow-body-style": 0,
+      "class-methods-use-this": 0,
+      "comma-dangle": 0,
       "indent": [
         1,
         "tab",
@@ -109,13 +97,8 @@
       ],
       "no-param-reassign": 0,
       "no-shadow": 0,
-      "no-underscore-dangle": 0,
-      "no-tabs": 0
-    },
-    "settings": {
-      "import/resolver": {
-        "babel-module": {}
-      }
+      "no-tabs": 0,
+      "no-underscore-dangle": 0
     }
   }
 }

@@ -31,12 +31,11 @@ export default class AssetManager {
 	 * @param  {String} id
 	 * @return {Mixed}
 	 */
-	getModel(id, assetId) {
-		const geometry = find(this.assets, { id: assetId });
-		if (geometry) {
-			const asset = find(geometry.data.models, { id });
-			if (asset) {
-				return asset.data;
+	getManifestAsset(id, assetId) {
+		const manifest = find(this.assets, { id: id });
+		if (manifest) {
+			if (manifest.data[assetId] !== undefined) {
+				return manifest.data[assetId];
 			}
 			warn(`AssetManager::get no assets found for ${id} in scene ${this.id} `);
 		}

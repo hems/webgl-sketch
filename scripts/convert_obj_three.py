@@ -157,6 +157,7 @@ TEMPLATE_FILE_ASCII = u"""\
     "metadata" :
     {
         "formatVersion" : 3.1,
+        "sourceFile"    : "%(fname)s",
         "generatedBy"   : "OBJConverter",
         "vertices"      : %(nvertex)d,
         "faces"         : %(nface)d,
@@ -193,6 +194,7 @@ TEMPLATE_FILE_BIN = u"""\
     "metadata" :
     {
         "formatVersion" : 3.1,
+        "sourceFile"    : "%(fname)s",
         "generatedBy"   : "OBJConverter",
         "vertices"      : %(nvertex)d,
         "faces"         : %(nface)d,
@@ -977,8 +979,8 @@ def create_materials(materials, mtlfilename, basename):
             mtl.update(parse_mtl(fname))
 
         else:
-           pass
-            # print "Couldn't find [%s]" % fname
+
+            print "Couldn't find [%s]" % fname
 
     return mtl
 
@@ -1200,7 +1202,7 @@ def convert_binary(infile, outfile):
     """
 
     if not file_exists(infile):
-        # print "Couldn't find [%s]" % infile
+        print "Couldn't find [%s]" % infile
         return
 
     binfile = get_name(outfile) + ".bin"

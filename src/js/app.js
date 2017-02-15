@@ -4,6 +4,7 @@ import {
 	Vector3,
 	MeshBasicMaterial,
 	Mesh,
+	MeshLambertMaterial,
 } from 'three';
 import {
 	log,
@@ -58,8 +59,8 @@ class App {
 
 		// Helpers
 		if (SHOW_HELPERS) {
-			scene.add(new GridHelper(50, 10));
-			scene.add(new AxisHelper(10));
+			scene.add(new GridHelper());
+			scene.add(new AxisHelper());
 		}
 
 		// Stats
@@ -76,8 +77,8 @@ class App {
 		this.controls = new OrbitControls(cameraDev, renderer.domElement);
 
 		// Camera position
-		this.zoom(cameraDev, 50);
-		this.zoom(cameraUser, 50);
+		this.zoom(cameraDev, 6);
+		this.zoom(cameraUser, 6);
 
 		// Gui
 		guiFlags.add(flags, 'cameraDev');
@@ -115,12 +116,12 @@ class App {
 			try {
 				if (VIVE_AVAILABLE) {
 					// Add vive detection
-					const model = AssetManager.getModel('vr_controller_vive_1_5', 'vive-controller');
+					const model = AssetManager.getManifestAsset('vive', 'vr_controller_vive_1_5');
 					const geometry = parseGeometry(model);
 					const material = new MeshBasicMaterial();
 					const mesh = new Mesh(geometry, material);
-					mesh.material.map = AssetManager.get('vive-texture');
-					mesh.material.specularMap = AssetManager.get('vive-spec');
+					mesh.material.map = AssetManager.getManifestAsset('vive', 'onepointfive_texture');
+					mesh.material.specularMap = AssetManager.getManifestAsset('vive', 'onepointfive_spec');
 					controller0.add(mesh.clone());
 					controller1.add(mesh.clone());
 

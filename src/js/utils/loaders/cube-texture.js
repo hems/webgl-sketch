@@ -7,7 +7,7 @@ function getUrls(path, format) {
 	const fileFormat = format === undefined ? 'png' : format;
 	const sides = ['px', 'nx', 'py', 'ny', 'pz', 'nz'];
 	const images = [];
-	for (let i = 0; i < sides.length; i++) {
+	for (let i = 0; i < sides.length; i += 1) {
 		images.push(`${path}/${sides[i]}.${fileFormat}`);
 	}
 	return images;

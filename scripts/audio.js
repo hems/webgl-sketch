@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use-strict'
 require('shelljs/global')
 
@@ -44,9 +45,10 @@ function generate(id) {
 }
 
 Promise.all([
-	generate('webgl/default')
+	generate('test')
 ]).then(() => {
 	console.log('Done');
 }).catch(error => {
 	console.log('Error', error);
 })
+/* eslint-enable */
