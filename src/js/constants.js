@@ -1,6 +1,6 @@
-export const DEV = true;
-export const SHOW_HELPERS = true;
-export const SHOW_STATS = true;
+export const DEV = false;
+export const SHOW_HELPERS = false;
+export const SHOW_STATS = false;
 export const VIVE_AVAILABLE = (navigator.getVRDisplays !== undefined) === true;
 
 export const BASE_URL = '/';

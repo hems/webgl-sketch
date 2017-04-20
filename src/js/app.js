@@ -47,7 +47,7 @@ import ASSETS from './assets';
 class App {
 
 	constructor() {
-		log('ixviii');
+		log('ixviii - hems kubik remix');
 
 		// Renderer
 		document.body.appendChild(renderer.domElement);
@@ -73,16 +73,22 @@ class App {
 			document.body.appendChild(stats.domElement);
 		}
 
+    // Camera position
+    //this.zoom(cameraDev, 6);
+    //this.zoom(cameraUser, 6);
+
+    cameraUser.position.y = 0
+    cameraUser.position.z = 5
+    cameraUser.lookAt( new Vector3( 0, 10, 0 ) )
+
 		// Controls
 		this.controls = new OrbitControls(cameraDev, renderer.domElement);
+		this.controls = new OrbitControls(cameraUser, renderer.domElement);
 
-		// Camera position
-		this.zoom(cameraDev, 6);
-		this.zoom(cameraUser, 6);
+
 
 		// Gui
 		guiFlags.add(flags, 'cameraDev');
-
 
 		this._loadAssets()
 			.then(this._onAssetsLoaded)
@@ -166,7 +172,7 @@ class App {
 		controller1.update();
 
 		if (flags.cameraDev && !effect.isPresenting) {
-			this._renderDev(cameraDev, 0, 0, 1, 1);
+      this._renderDev(cameraDev, 0, 0, 1, 1);
 			this._renderDev(cameraUser, 0, 0, 0.25, 0.25);
 		} else {
 			this._renderMain(cameraUser, 0, 0, 1, 1);
@@ -216,4 +222,4 @@ class App {
 	}
 }
 
-export default new App();
+export default new App()
