@@ -13,9 +13,8 @@ effect = vive.effect
 
 loader   = new THREE.TextureLoader()
 texture  = loader.load '/assets/images/kubik_texture.jpg'
-texture  = loader.load '/assets/images/kubik_texture2.jpg'
 #texture.anisotropy = renderer.getMaxAnisotropy();
-geometry = new THREE.BoxGeometry( 0.1, 3, 21 )
+geometry = new THREE.BoxGeometry( 1, 1, 1 )
 
 material = new THREE.MeshLambertMaterial map: texture
 material.side               = THREE.DoubleSide
@@ -64,8 +63,6 @@ distribute_cubes = ->
 
     cube.cube.position.z = 1
 
-    cube.cube.position.z = -1
-
     #cube.group.rotation.x = ( ratio * 360 ) * ( Math.PI / 180 )
     #cube.group.rotation.z = ( ratio * 360 ) * ( Math.PI / 180 )
     cube.group.rotation.y = ( ratio * 360 ) * ( Math.PI / 180 )
@@ -91,15 +88,13 @@ on_frame = ->
 
     cube.cube.rotation.x += 0.1 * Math.PI / 180
 
-    cube.cube.rotation.y += 0.2 * Math.PI / 180
-
   effect.requestAnimationFrame on_frame
 
-#cubes = spawn 180 * 6
-cubes = spawn 380
+cubes = spawn 180 * 6
+#cubes = spawn 380
 
 do distribute_cubes
 
-spread_cubes( 3 )
+spread_cubes( 20 )
 
 setTimeout (-> on_frame() ), 200
