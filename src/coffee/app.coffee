@@ -63,9 +63,9 @@ distribute_cubes = ->
 
     cube.cube.position.z = 1
 
-    #cube.group.rotation.x = ( ratio * 360 ) * ( Math.PI / 180 )
+    cube.group.rotation.x = ( ratio * 360 ) * ( Math.PI / 180 )
     #cube.group.rotation.z = ( ratio * 360 ) * ( Math.PI / 180 )
-    cube.group.rotation.y = ( ratio * 360 ) * ( Math.PI / 180 )
+    #cube.group.rotation.y = ( ratio * 360 ) * ( Math.PI / 180 )
 
 spread_cubes = ( magic ) ->
 
@@ -90,7 +90,7 @@ on_frame = ->
 
   effect.requestAnimationFrame on_frame
 
-cubes = spawn 180 * 6
+cubes = spawn 180 * 3
 #cubes = spawn 380
 
 do distribute_cubes
