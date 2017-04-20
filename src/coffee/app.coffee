@@ -29,6 +29,7 @@ material.depthTest          = false
 parent = new THREE.Object3D()
 #parent.position.set null, 2, null
 parent.rotation.set Math.PI / 2, 0, 0
+parent.rotation.set 0, Math.PI / 2, 0
 
 spawn = ( num_cubes ) ->
 
