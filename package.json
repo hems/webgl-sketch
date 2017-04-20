@@ -55,7 +55,8 @@
     "object-assign": "^4.1.0",
     "sono": "^0.1.85",
     "stats-js": "^1.0.0-alpha1",
-    "three": "^0.84.0"
+    "three": "^0.84.0",
+    "webpack": "^2.4.1"
   },
   "pre-push": [
     "lint"
